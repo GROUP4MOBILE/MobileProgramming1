@@ -1,0 +1,39 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/newTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:hint="@string/new_task"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:autofillHints="autofill"
+        android:inputType="text" />
+    <Button
+        android:id="@+id/timePickerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_reminder_time"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center_horizontal" />
+
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newTask"
+        android:layout_alignParentEnd="true"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:textColor="@android:color/darker_gray"
+        android:text="@string/save"
+        android:background="@android:color/transparent"/>
+
+
+
+</RelativeLayout>

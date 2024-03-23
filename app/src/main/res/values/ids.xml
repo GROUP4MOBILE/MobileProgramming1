@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="todoCheckBox" type="id">@id/checkbox</item>
+    <item name="newTaskSaveButton" type="id">@id/newTaskSaveButton</item>
+    <item name="newTaskText" type="id">@id/newTaskText</item>
+</resources>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TODO project</string>
+    <string name="todo">todo</string>
+    <string name="tasks">Tasks</string>
+    <string name="mobile_pro">MOBILE PRO</string>
+    <string name="TODO">TODO</string>
+    <string name="new_task">New Task</string>
+    <string name="save">save</string>
+    <string name="task_reminder">Task Reminder</string>
+    <string name="notification_icon">Notification Icon</string>
+    <string name="set_reminder_time">Set Reminder Time</string>
+
+</resources>
