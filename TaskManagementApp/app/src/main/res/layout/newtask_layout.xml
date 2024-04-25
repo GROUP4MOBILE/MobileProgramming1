@@ -127,11 +127,7 @@
             android:text="@string/add" />
     </LinearLayout>
 
-
-
-
     <!-- Button to add subtask -->
-
 
     <Button
         android:id="@+id/uploadBtn"
@@ -161,7 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonSetReminder"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="26dp"
         android:backgroundTint="@android:color/holo_green_dark"
         android:text="@string/save"

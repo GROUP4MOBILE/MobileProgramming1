@@ -19,6 +19,7 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.tasks.model.TodoModel
 import com.example.tasks.utils.DatabaseHandler
@@ -26,7 +27,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
 class AddNewTask : BottomSheetDialogFragment() {
     private lateinit var taskTitle: EditText
     private lateinit var taskDescription: EditText
@@ -40,7 +40,6 @@ class AddNewTask : BottomSheetDialogFragment() {
     private var addSubtaskBtn: Button? = null
     private val subtasksList: MutableList<String> = arrayListOf()
     private lateinit var subtaskContainer: LinearLayout
-
     companion object {
         const val TAG = "AddNewTaskFragment"
         const val REQUEST_CODE_FILE_PICKER = 1001 // Define your request code
@@ -48,19 +47,16 @@ class AddNewTask : BottomSheetDialogFragment() {
             return AddNewTask()
         }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.DialogStyle)
     }
-
     private fun openFilePicker() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "*/*" // Specify the MIME type of the document you want to allow the user to select
         startActivityForResult(intent, REQUEST_CODE_FILE_PICKER)
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -75,7 +71,6 @@ class AddNewTask : BottomSheetDialogFragment() {
         // Return the inflated view
         return view
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         taskTitle = requireView().findViewById(R.id.taskTitle)
@@ -91,12 +86,10 @@ class AddNewTask : BottomSheetDialogFragment() {
         taskEndDate.setOnClickListener {
             showDatePicker(taskEndDate)
         }
-
         buttonSetReminder = requireView().findViewById(R.id.buttonSetReminder)
         buttonSetReminder.setOnClickListener {
             showTimePicker()
         }
-
         // Initialize views
         subtask = requireView().findViewById<EditText>(R.id.subtask)
         addSubtaskBtn = requireView().findViewById<Button>(R.id.addSubtaskBtn)
@@ -114,12 +107,10 @@ class AddNewTask : BottomSheetDialogFragment() {
                 subtaskContainer.addView(newEditText)
             }
         }
-
         uploadBtn = requireView().findViewById(R.id.uploadBtn)
         uploadBtn.setOnClickListener {
             openFilePicker()
         }
-
         save = requireView().findViewById(R.id.save)
         db = DatabaseHandler(requireActivity())
         db.openDatabase()
@@ -130,14 +121,14 @@ class AddNewTask : BottomSheetDialogFragment() {
             if (taskId != -1) {
                 val task = db.getTask(taskId)
                 task?.let {
-                    taskTitle.setText(it.title)
-                    taskDescription.setText(it.description)
-                    taskStartDate.setText(it.startDate)
-                    taskEndDate.setText(it.endDate)
-                    subtask?.setText(it.subtasks)
+                    taskTitle.setText(it.Title)
+                    taskDescription.setText(it.Description)
+                    taskStartDate.setText(it.StartDate)
+                    taskEndDate.setText(it.EndDate)
+                    subtask?.setText(it.Subtasks)
 
-                    if (it.title.isNotEmpty() || it.description.isNotEmpty() ||
-                        it.startDate.isNotEmpty() || it.endDate.isNotEmpty() || it.subtasks.isNotEmpty()
+                    if (it.Title.isNotEmpty() || it.Description.isNotEmpty() ||
+                        it.StartDate.isNotEmpty() || it.EndDate.isNotEmpty() || it.Subtasks.isNotEmpty()
                     ) {
                         save.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
                     }
@@ -149,7 +140,6 @@ class AddNewTask : BottomSheetDialogFragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // No changes needed here
             }
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.isNullOrEmpty()) {
                     save.isEnabled = false
@@ -176,14 +166,18 @@ class AddNewTask : BottomSheetDialogFragment() {
             if (taskId != null) {
                 if (taskId != -1) {
                     db.updateTask(TodoModel(taskId, false, title, description, startDate, endDate, subtasks))
+                    showToast("Task updated successfully")
                 } else {
                     db.insertTask(TodoModel(1, false, title, description, startDate, endDate, subtasks))
+                    showToast("New task added successfully")
                 }
             }
             dismiss()
         }
     }
-
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
     private fun showDatePicker(editText: EditText) {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)
@@ -202,7 +196,6 @@ class AddNewTask : BottomSheetDialogFragment() {
         )
         datePickerDialog.show()
     }
-
     private fun showTimePicker() {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -221,7 +214,6 @@ class AddNewTask : BottomSheetDialogFragment() {
         )
         timePickerDialog.show()
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_FILE_PICKER && resultCode == Activity.RESULT_OK) {

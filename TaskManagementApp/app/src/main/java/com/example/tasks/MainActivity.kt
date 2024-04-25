@@ -1,6 +1,4 @@
 package com.example.tasks
-
-
 import android.annotation.SuppressLint
 
 import android.content.DialogInterface
@@ -21,9 +19,7 @@ import com.example.tasks.databinding.ActivityMainBinding
 import com.example.tasks.model.TodoModel
 import com.example.tasks.utils.DatabaseHandler
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
 class MainActivity : AppCompatActivity(), DialogCloseListener {
-
     private lateinit var binding: ActivityMainBinding
     private lateinit var tasks: TextView
     private lateinit var tasksRecyclerView: RecyclerView
@@ -32,8 +28,6 @@ class MainActivity : AppCompatActivity(), DialogCloseListener {
     private var tasksList: ArrayList<TodoModel> = ArrayList() // Initialize as non-nullable
     private var db: DatabaseHandler? = null
     private lateinit var addNewTask: AddNewTask
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,19 +56,11 @@ class MainActivity : AppCompatActivity(), DialogCloseListener {
         itemTouchHelper.attachToRecyclerView(tasksRecyclerView)
 
         addTasks = findViewById(R.id.addTasks)
-
-
         addNewTask = AddNewTask()
-
-
         addTasks.setOnClickListener {
-
             AddNewTask.newInstance().show(supportFragmentManager, AddNewTask.TAG)
         }
-
     }
-
-
     @SuppressLint("NotifyDataSetChanged")
     override fun handleDialogClose(dialog: DialogInterface) {
         tasksList.clear()
@@ -83,8 +69,4 @@ class MainActivity : AppCompatActivity(), DialogCloseListener {
         tasksAdapter?.setTasks(tasksList)
         tasksAdapter?.notifyDataSetChanged()
     }
-
-
-
-
 }

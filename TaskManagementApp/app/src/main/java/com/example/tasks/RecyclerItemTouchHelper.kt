@@ -12,8 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tasks.adapter.TodoAdapter
-
-
 class RecyclerItemTouchHelper(private val adapter: TodoAdapter) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
     override fun onMove(
@@ -23,7 +21,6 @@ class RecyclerItemTouchHelper(private val adapter: TodoAdapter) :
     ): Boolean {
         return false
     }
-
     @SuppressLint("SuspiciousIndentation")
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val position = viewHolder.getAdapterPosition()
